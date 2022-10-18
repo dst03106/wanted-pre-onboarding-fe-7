@@ -41,36 +41,27 @@ export const addTodo = async (todo) =>
         "https://pre-onboarding-selection-task.shop/todos",
         { "todo": `${todo}` },
         { 'headers': HEADERS })
-        .then(() => {
-            fetchTodos();
-        })
         .catch(error => {
             alert(error.response.data.message);
         });
 
-export const updateTodo = async ({ id, todo, isCompleted }) =>
-    await axios.put(
+export const updateTodo = async ({ id, todo, isCompleted }) => {
+    return await axios.put(
         `https://pre-onboarding-selection-task.shop/todos/${id}`,
         {
             ...(todo && { "todo": `${todo}` }),
-            ...(isCompleted && { "isCompleted": isCompleted }),
+            ...(isCompleted !== undefined && { "isCompleted": isCompleted }),
         },
         { 'headers': HEADERS })
-        .then(() => {
-            fetchTodos();
-        })
         .catch(error => {
             alert(error.response.data.message);
         });
-
+}
 
 export const deleteTodo = async (id) =>
     await axios.delete(
         `https://pre-onboarding-selection-task.shop/todos/${id}`,
         { 'headers': HEADERS })
-        .then(() => {
-            fetchTodos();
-        })
         .catch(error => {
             alert(error.response.data.message);
         });

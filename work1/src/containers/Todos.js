@@ -15,14 +15,14 @@ const Todos = () => {
 
     const handleSubmit = () => {
         addTodo(inputValue);
+        setTodos((todos) => {
+            return [...todos, { id: todos[todos.length - 1].id + 1, todo: inputValue, isCompleted: false }]
+        })
     }
 
     useEffect(() => {
         (async () => {
             const data = await fetchTodos();
-
-            console.log(data);
-
             if (data) setTodos(data);
         })();
 
